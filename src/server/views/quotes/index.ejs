@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Quick JS
+    </title>
+    <link rel="stylesheet" href="/resources/style/main.css" />
+</head>
+
+<body>
+    <div class="test-text">
+        Quick Quotes
+        <br/>
+        <ul class="quotes">
+          <% for(var i=0; i<quotes.length; i++) {%>
+            <li class="quote">
+              <span><%= quotes[i].name %></span>
+              <span><%= quotes[i].quote %></span>
+              <a href="quotes/delete/<%= quotes[i]._id %>">Delete</a>
+            </li>
+          <% } %>
+        </ul>
+        <form action="/quotes" method="POST">
+            <input type="text" placeholder="name" name="name">
+            <input type="text" placeholder="quote" name="quote">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="/node_modules"></script>
+    <script src="/resources/js/main.js"></script>
+</body>
+
+</html>
