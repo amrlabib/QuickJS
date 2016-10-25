@@ -80,7 +80,6 @@ gulp.task('static-server-and-watch', function() {
     gulp.watch(paths.style.src + ".less", ['compileLess', 'compileSass', browserSync.reload]);
     gulp.watch(paths.html.src, ['copyHtmlFiles', browserSync.reload]);
     gulp.watch(paths.js.src, ['scripts', browserSync.reload]);
-    gulp.watch(paths.serverFiles.src, ['serverFiles', browserSync.reload]);
 });
 
 
@@ -106,8 +105,7 @@ gulp.task('node-static-servers', function(cb) {
     gulp.watch(paths.style.src + ".less", ['compileLess', 'compileSass', browserSync.reload]);
     gulp.watch(paths.html.src, ['copyHtmlFiles', browserSync.reload]);
     gulp.watch(paths.js.src, ['scripts', browserSync.reload]);
-    gulp.watch(paths.serverFiles.src, ['serverFiles', browserSync.reload]);
 });
 
 //last 2 tasks should be added only if we have node server not only static server
-gulp.task('default', ['copyHtmlFiles', 'images', 'compileLess', 'compileSass', 'scripts', 'serverFiles', 'static-server-and-watch']);
+gulp.task('default', ['copyHtmlFiles', 'images', 'compileLess', 'compileSass', 'scripts', 'static-server-and-watch']);
