@@ -61,7 +61,8 @@ gulp.task('compileSass', function() {
 
 //Concat all javascript files in one single file named main.js and minify it
 gulp.task('scripts', function() {
-    return gulp.src([paths.js.src])
+    return gulp.src([paths.js.src , 
+        './node_modules/angular/angular.min.js'])
         .pipe(concat('main.js'))
         .pipe(jsMinify())
         .pipe(gulp.dest(paths.js.dist));
