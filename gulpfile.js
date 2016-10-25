@@ -26,10 +26,6 @@ var paths = {
     js: {
         src: 'src/resources/js/**/*.js',
         dist: 'dist/resources/js/'
-    },
-    serverFiles: {  // only with node server
-        src: 'src/server/**/*.js',
-        dist: 'dist/server/'
     }
 };
 
@@ -71,12 +67,6 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest(paths.js.dist));
 });
 
-//javascript files for node server
-gulp.task('serverFiles', function() {
-    return gulp.src([paths.serverFiles.src])
-        .pipe(gulp.dest(paths.serverFiles.dist));
-});
-
 
 // Static server and files watch only for static sites
 gulp.task('static-server-and-watch', function() {
@@ -90,6 +80,7 @@ gulp.task('static-server-and-watch', function() {
     gulp.watch(paths.style.src + ".less", ['compileLess', 'compileSass', browserSync.reload]);
     gulp.watch(paths.html.src, ['copyHtmlFiles', browserSync.reload]);
     gulp.watch(paths.js.src, ['scripts', browserSync.reload]);
+    gulp.watch(paths.serverFiles.src, ['serverFiles', browserSync.reload]);
 });
 
 
@@ -119,4 +110,4 @@ gulp.task('node-static-servers', function(cb) {
 });
 
 //last 2 tasks should be added only if we have node server not only static server
-gulp.task('default', ['copyHtmlFiles', 'images', 'compileLess', 'compileSass', 'scripts', 'serverFiles', 'node-static-servers']);
+gulp.task('default', ['copyHtmlFiles', 'images', 'compileLess', 'compileSass', 'scripts', 'serverFiles', 'static-server-and-watch']);

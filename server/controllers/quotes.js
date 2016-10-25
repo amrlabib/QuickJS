@@ -20,8 +20,7 @@ module.exports = function(app, dbModule) {
     app.get('/quotes/delete/:id', (req, res) => {
         console.log("deleting quote");
         dbModule.db.collection('quotes').remove({ "_id": dbModule.ObjectID(req.params.id) }, function(err) {
-
-            res.redirect('/');
+            res.redirect('/quotes/');
         });
     });
 };

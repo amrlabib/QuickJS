@@ -3,9 +3,9 @@ var app = new express();
 var session = require('express-session');
 var path = require('path');
 var bodyParser = require('body-parser');
-var dbModule = require('./dist/server/config/db.js')(app);
+var dbModule = require('./server/config/db.js')(app);
 
-app.set('views', __dirname + '/dist/server/views');
+app.set('views', __dirname + '/server/views');
 app.set('view engine', 'ejs');
 
 //express middlewares
@@ -18,7 +18,7 @@ app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
 
 app.get('/', (req, res) => {
     var allQuotes = dbModule.db.collection('quotes').find().toArray(function(err, results) {
-        if (!req.session.username)
+        if (!req.session.username) 
             req.session.username = "none";
 
         console.log(results);
@@ -28,8 +28,8 @@ app.get('/', (req, res) => {
 });
 
 
-require('./dist/server/controllers/users.js')(app, dbModule);
-require('./dist/server/controllers/quotes.js')(app, dbModule);
+require('./server/controllers/users.js')(app, dbModule);
+require('./server/controllers/quotes.js')(app, dbModule);
 
 
 // Start Node server on Port 5000
