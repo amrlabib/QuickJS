@@ -10,21 +10,22 @@ var spawn = require('child_process').spawn;
 var color = require('gulp-color');
 
 
+var srcType = "scr-angular";
 var paths = {
     html: {
-        src: 'src/**/*.+(html|ejs)',
+        src: srcType + '/**/*.+(html|ejs)',
         dist: 'dist'
     },
     images: {
-        src: 'src/resources/images/**/*',
+        src: srcType + '/resources/images/**/*',
         dist: 'dist/resources/images'
     },
     style: {
-        src: 'src/resources/style/main',
+        src: srcType + '/resources/style/main',
         dist: 'dist/resources/style/'
     },
     js: {
-        src: 'src/resources/js/**/*.js',
+        src: srcType + '/resources/js/**/*.js',
         dist: 'dist/resources/js/'
     }
 };
