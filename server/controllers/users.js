@@ -71,4 +71,12 @@ module.exports = function(app, dbModule) {
             res.send(JSON.stringify({ "status": "sho3'l fanade2" }));
         });
     });
+
+
+    app.get('/api/users/', (req, res) => {
+        var allUsers = dbModule.db.collection('users').find().toArray(function(err, results) {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify(results));
+        });
+    });
 };

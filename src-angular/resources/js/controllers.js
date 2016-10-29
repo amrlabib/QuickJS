@@ -5,8 +5,12 @@ quickJSApp.controller('mainController', ['$scope', '$location', function($scope,
     });
 }]);
 
-quickJSApp.controller('homeController', ['$scope', function($scope) {
-
+quickJSApp.controller('homeController', ['$scope', '$http', function($scope, $http) {
+    $http.get("http://127.0.0.1:5000/api/users").success(function(result) {
+        $scope.usersList = result;
+    }).error(function(data, status) {
+        console.log("error while getting users list");
+    });
 }]);
 
 
@@ -29,7 +33,7 @@ quickJSApp.controller('signupController', ['$scope', '$http', '$location', 'sign
     }
 
     $scope.submit = function() {
-        if ($scope.errorMessage.length == 0)
+        if (signupValidation.validateUsername($scope.username, $scope.errorMessage) && signupValidation.validatePassword($scope.password, $scope.errorMessage))
             $scope.addUser();
     }
 
