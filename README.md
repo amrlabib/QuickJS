@@ -2,7 +2,7 @@
 
 
 <h3>Description</h3>
-<p>Simple Web Application with different technologies to get the same final result (node js, Angular JS, React JS, Backbone JS, Ember JS, ...)</p>
+<p>Simple Web Application with different technologies to get the same final result (node js, Angular JS)</p>
 
 <hr/>
 
