@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html >
 
 <head>
     <meta charset="utf-8">
@@ -9,19 +9,34 @@
     <link rel="stylesheet" href="/resources/style/main.css" />
 </head>
 
-<body>
-    <div class="test-text">
-        Quick home
-        <br/>
-        <a href="/users/login/">Login</a><br/>
-        <a href="/users/signup/">Signup</a><br/>
-        <a href="/users/">Users List</a><br/>
-        <a href="/quotes/">Quotes List</a><br/>
-        <% if ( session.username && session.username != "none") {%>
-            <a href="/users/logout/">Log out from user <%= session.username %> </a>
-        <% }%>
-    </div>
-    <script src="/node_modules"></script>
+<body >
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Quick JS Angular</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/users/login">Login</a></li>
+                    <li><a href="/users/signup">Signup</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <section class="home">
+    <h1>Users list</h1>
+    <ul class="list-group">
+        <% for(var i=0; i<users.length; i++) {%>
+            <li class="list-group-item">
+                <span>Username: </span><%= users[i].username %>
+                <br/>
+                <span>Password: </span><%= users[i].passowrd %>
+                <a class="btn btn-default" href="/users/delete/<%=users[i]._id%>">Delete</a>
+            </li>
+        <% } %>
+    </ul>
+    </section>
     <script src="/resources/js/main.js"></script>
 </body>
 

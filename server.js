@@ -42,13 +42,11 @@ app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
 
 
 app.get('/', (req, res) => {
-    var allQuotes = dbModule.db.collection('quotes').find().toArray(function(err, results) {
+    var allQuotes = dbModule.db.collection('users').find().toArray(function(err, results) {
         if (!req.session.username)
             req.session.username = "none";
 
-        console.log(results);
-        //res.sendFile('index.html', { root: path.join(__dirname, 'dist/') });
-        res.render('index.ejs', { quotes: results, session: req.session });
+        res.render('index.ejs', { users: results, session: req.session });
     });
 });
 

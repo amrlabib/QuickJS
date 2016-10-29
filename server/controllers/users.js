@@ -47,21 +47,20 @@ module.exports = function(app, dbModule) {
             if (err) return console.log(err)
 
             console.log('saved user to database');
-            res.redirect('/users/');
+            res.redirect('/');
         });
     });
 
     app.get('/users/delete/:id', (req, res) => {
         console.log("deleting user");
         dbModule.db.collection('users').remove({ "_id": dbModule.ObjectID(req.params.id) }, function(err) {
-
-            res.redirect('/users/');
+            res.redirect('/');
         });
     });
 
 
 
-    /////// APIs ///////
+    /////// APIs used for Angular app src ///////
 
     app.post('/api/users/signup/', (req, res) => {
         dbModule.db.collection('users').save(req.body, (err, result) => {
