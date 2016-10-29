@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="quickJSApp">
 
 <head>
     <meta charset="utf-8">
@@ -9,18 +9,23 @@
     <link rel="stylesheet" href="/resources/style/main.css" />
 </head>
 
-<body >
-    <div class="test-text">
-        Quick <br/>
-        <a href="/users/login/">Login</a><br/>
-        <a href="/users/signup/">About</a><br/>
-        <form action="/quotes" method="POST">
-            <input type="text" placeholder="name" name="name">
-            <input type="text" placeholder="quote" name="quote">
-            <button type="submit">Submit</button>
-        </form>
+<body ng-controller="mainController">
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Quick JS Angular</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li ng-class="{ 'active' : page == '/' }"><a href="#/">Home</a></li>
+                    <li ng-class="{ 'active' : page == '/login' }"><a href="#login">Login</a></li>
+                    <li ng-class="{ 'active' : page == '/signup' }"><a href="#signup">Signup</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div ng-view>
     </div>
-    <script src="/node_modules"></script>
     <script src="/resources/js/main.js"></script>
 </body>
 

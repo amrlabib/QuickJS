@@ -10,10 +10,10 @@ var spawn = require('child_process').spawn;
 var color = require('gulp-color');
 
 
-var srcType = "scr-angular";
+var srcType = "src-angular";
 var paths = {
     html: {
-        src: srcType + '/**/*.+(html|ejs)',
+        src: srcType + '/**/*.+(html|htm|ejs)',
         dist: 'dist'
     },
     images: {
@@ -62,8 +62,12 @@ gulp.task('compileSass', function() {
 
 //Concat all javascript files in one single file named main.js and minify it
 gulp.task('scripts', function() {
-    return gulp.src([paths.js.src , 
-        './node_modules/angular/angular.min.js'])
+    return gulp.src([
+            './node_modules/angular/angular.min.js',
+            './node_modules/angular-route/angular-route.min.js',
+            './node_modules/angular-resource/angular-resource.min.js',
+            paths.js.src
+        ])
         .pipe(concat('main.js'))
         .pipe(jsMinify())
         .pipe(gulp.dest(paths.js.dist));
@@ -79,7 +83,7 @@ gulp.task('static-server-and-watch', function() {
     });
 
     //Watch any change in html, css or js files to reload browserSync 
-    gulp.watch(paths.style.src + ".less", ['compileLess', 'compileSass', browserSync.reload]);
+    gulp.watch(paths.style.src + ".+(less|scss)", ['compileLess', 'compileSass', browserSync.reload]);
     gulp.watch(paths.html.src, ['copyHtmlFiles', browserSync.reload]);
     gulp.watch(paths.js.src, ['scripts', browserSync.reload]);
 });
@@ -96,7 +100,7 @@ gulp.task('node-static-servers', function(cb) {
 
     var nodeServer = spawn('node', ['server.js']);
     nodeServer.on('close', function(code) {
-        console.log(color("server: Node Server Closed, code: " + code , "Green"));
+        console.log(color("server: Node Server Closed, code: " + code, "Green"));
         cb(code);
     });
     nodeServer.stdout.on('data', (data) => {
@@ -104,7 +108,7 @@ gulp.task('node-static-servers', function(cb) {
     });
 
     //Watch any change in html, css or js files to reload browserSync 
-    gulp.watch(paths.style.src + ".less", ['compileLess', 'compileSass', browserSync.reload]);
+    gulp.watch(paths.style.src + ".+(less|scss)", ['compileLess', 'compileSass', browserSync.reload]);
     gulp.watch(paths.html.src, ['copyHtmlFiles', browserSync.reload]);
     gulp.watch(paths.js.src, ['scripts', browserSync.reload]);
 });

@@ -24,6 +24,9 @@
     "mongodb": "^2.2.10"
   },
   "devDependencies": {
+    "angular-resource": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "bootstrap-sass": "^3.3.7",
     "browser-sync": "^2.14.0",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.12",

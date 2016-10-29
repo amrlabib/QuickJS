@@ -33,7 +33,7 @@ module.exports = function(app, dbModule) {
     app.get('/users/logout', (req, res) => {
         console.log("in logout route");
         req.session.username = "none";
-        res.render('users/login.ejs' , { loginMessage: "Current logged user is " + req.session.username ,  session : req.session});
+        res.render('users/login.ejs', { loginMessage: "Current logged user is " + req.session.username, session: req.session });
     });
 
 
@@ -53,9 +53,22 @@ module.exports = function(app, dbModule) {
 
     app.get('/users/delete/:id', (req, res) => {
         console.log("deleting user");
-        dbModule.db.collection('users').remove( { "_id" : dbModule.ObjectID(req.params.id)} , function(err) {
+        dbModule.db.collection('users').remove({ "_id": dbModule.ObjectID(req.params.id) }, function(err) {
 
             res.redirect('/users/');
+        });
+    });
+
+
+
+    /////// APIs ///////
+
+    app.post('/api/users/signup/', (req, res) => {
+        dbModule.db.collection('users').save(req.body, (err, result) => {
+            if (err) return console.log(err)
+
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({ "status": "sho3'l fanade2" }));
         });
     });
 };

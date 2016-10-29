@@ -1,0 +1,20 @@
+<section class="signup">
+    <h1>sign up</h1>
+    <form ng-submit="submit()">
+        <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="Username" ng-model="username" ng-blur="validateUsername()" />
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="passowrd" placeholder="Password" ng-model="password" ng-blur="validatePassword()"/>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="form-control" />
+        </div>
+    </form>
+    <div class="alert alert-danger" role="alert" ng-show=" errorMessage.username.length > 0 ||  errorMessage.password.length > 0">
+        <ul>
+            <li ng-show="errorMessage.username.length > 0">{{errorMessage.username}}</li>
+            <li ng-show="errorMessage.password.length > 0">{{errorMessage.password}}</li>
+        </ul>
+    </div>
+</section>
