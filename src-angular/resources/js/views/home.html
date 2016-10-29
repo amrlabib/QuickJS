@@ -1,10 +1,6 @@
 <section class="home">
     <h1>Users list</h1>
     <ul class="list-group">
-        <li ng-repeat="user in usersList" class="list-group-item">
-            <span>Username: </span>{{user.username}}
-            <br/>
-            <span>Password: </span>{{user.passowrd}}
-        </li>
+        <user ng-repeat="user in usersList" user="user" delete-user="deleteUser(userID)"></user>
     </ul>
 </section>

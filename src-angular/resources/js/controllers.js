@@ -5,12 +5,30 @@ quickJSApp.controller('mainController', ['$scope', '$location', function($scope,
     });
 }]);
 
-quickJSApp.controller('homeController', ['$scope', '$http', function($scope, $http) {
+quickJSApp.controller('homeController', ['$scope', '$http', '$location', function($scope, $http, $location) {
     $http.get("http://127.0.0.1:5000/api/users").success(function(result) {
         $scope.usersList = result;
     }).error(function(data, status) {
         console.log("error while getting users list");
     });
+
+    $scope.deleteUser = function(userID) {
+        $http.get("http://127.0.0.1:5000/api/users/delete/" + userID).success(function(result) {
+
+            var currentIndex = 0;
+            $scope.usersList.forEach(function(user) {
+                if (user._id == userID) {
+                    console.log(currentIndex);
+                    $scope.usersList.splice(currentIndex, 1);
+                    return;
+                }
+                currentIndex++;
+            });
+
+        }).error(function(data, status) {
+            console.log("error while deleting user from database");
+        });
+    }
 }]);
 
 

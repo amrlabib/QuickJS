@@ -1,4 +1,6 @@
-<li class="user list-group-item">
-    <span class="username"></span>
-    <span class="password"></span>
+<li class="list-group-item">
+    <span>Username: </span>{{user.username}}
+    <br/>
+    <span>Password: </span>{{user.passowrd}}
+    <a class="btn btn-default" ng-click="deleteUser({userID : user._id})">Delete</a>
 </li>

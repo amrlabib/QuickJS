@@ -79,4 +79,13 @@ module.exports = function(app, dbModule) {
             res.send(JSON.stringify(results));
         });
     });
+
+
+    app.get('/api/users/delete/:id', (req, res) => {
+        dbModule.db.collection('users').remove({ "_id": dbModule.ObjectID(req.params.id) }, function(err) {
+
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({ message: "successfully deleted " }));
+        });
+    });
 };
