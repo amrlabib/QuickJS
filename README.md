@@ -2,7 +2,7 @@
 
 
 <h3>Description</h3>
-<p>Simple Web Application with different technologies to get the same final result (node js, Angular JS)</p>
+<p>Simple Web Application with different technologies to get the same final result (node js, Angular JS, React JS)</p>
 
 <hr/>
 
@@ -31,6 +31,8 @@
 <li>SCSS</li>
 <li>Bootstrap</li>
 <li>Angular 1</li>
+<li>React</li>
+<li>JSX</li>
 <li>Gulp</li>
 </ul>
 
