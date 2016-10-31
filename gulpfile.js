@@ -8,9 +8,13 @@ var concat = require('gulp-concat');
 var browserSync = require('browser-sync').create();
 var spawn = require('child_process').spawn;
 var color = require('gulp-color');
+var babel = require('gulp-babel');
+var browserify = require('gulp-browserify');
 
 
-var srcType = "src-angular";
+
+//change source to what ever technology used for the application (Angular , React , ... etc )
+var srcType = "src-react";
 var paths = {
     html: {
         src: srcType + '/**/*.+(html|htm|ejs)',
@@ -62,12 +66,20 @@ gulp.task('compileSass', function() {
 
 //Concat all javascript files in one single file named main.js and minify it
 gulp.task('scripts', function() {
-    return gulp.src([
+    var jsSrc = [paths.js.src];
+    if (srcType == "src-angular")
+        jsSrc = [
             './node_modules/angular/angular.min.js',
             './node_modules/angular-route/angular-route.min.js',
             './node_modules/angular-resource/angular-resource.min.js',
             paths.js.src
-        ])
+        ];
+
+    return gulp.src(jsSrc)
+        .pipe(babel({ //babel is used only if our javascript is using ES6 to change it to all browsers compatible JS ES5
+            presets: ['es2015'],
+            plugins: ['transform-react-jsx']
+        })).pipe(browserify()) //browserify is used to change require to browser compatible code, only in case projects like React
         .pipe(concat('main.js'))
         .pipe(jsMinify())
         .pipe(gulp.dest(paths.js.dist));

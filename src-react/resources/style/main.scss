@@ -1,0 +1,19 @@
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+body {
+    background-color: $brand-primary;
+    section {
+        display: block;
+        width: 400px;
+        height: 400px;
+        margin: 0 auto;
+    }
+    .signup,
+    .login,
+    .home {
+        h1 {
+            margin: 100px 0 50px 0;
+            color: white;
+            text-align: center;
+        }
+    }
+}
