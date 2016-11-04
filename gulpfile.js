@@ -8,9 +8,7 @@ var concat = require('gulp-concat');
 var browserSync = require('browser-sync').create();
 var spawn = require('child_process').spawn;
 var color = require('gulp-color');
-var babel = require('gulp-babel');
-var browserify = require('gulp-browserify');
-
+var webpack = require('webpack-stream');
 
 
 //change source to what ever technology used for the application (Angular , React , ... etc )
@@ -64,7 +62,8 @@ gulp.task('compileSass', function() {
         .pipe(gulp.dest(paths.style.dist));
 });
 
-//Concat all javascript files in one single file named main.js and minify it
+
+//Concat all javascript files in one single file named main.js and minify it after using webpack for react
 gulp.task('scripts', function() {
     var jsSrc = [paths.js.src];
     if (srcType == "src-angular")
@@ -76,10 +75,17 @@ gulp.task('scripts', function() {
         ];
 
     return gulp.src(jsSrc)
-        .pipe(babel({ //babel is used only if our javascript is using ES6 to change it to all browsers compatible JS ES5
-            presets: ['es2015'],
-            plugins: ['transform-react-jsx']
-        })).pipe(browserify()) //browserify is used to change require to browser compatible code, only in case projects like React
+        .pipe(concat('main.js'))
+        .pipe(jsMinify())
+        .pipe(gulp.dest(paths.js.dist));
+});
+
+
+//Concat all javascript files in one single file named main.js and minify it after using webpack for react
+gulp.task('scripts-react', function() {
+    var jsSrc = [paths.js.src];
+    return gulp.src(jsSrc)
+        .pipe(webpack(require('./webpack.config.js')))
         .pipe(concat('main.js'))
         .pipe(jsMinify())
         .pipe(gulp.dest(paths.js.dist));
@@ -126,4 +132,4 @@ gulp.task('node-static-servers', function(cb) {
 });
 
 //last 2 tasks should be added only if we have node server not only static server
-gulp.task('default', ['copyHtmlFiles', 'images', 'compileLess', 'compileSass', 'scripts', 'static-server-and-watch']);
+gulp.task('default', ['copyHtmlFiles', 'images', 'compileLess', 'compileSass', 'scripts-react', 'static-server-and-watch']);
