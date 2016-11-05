@@ -63,7 +63,7 @@ gulp.task('compileSass', function() {
 });
 
 
-//Concat all javascript files in one single file named main.js and minify it after using webpack for react
+//Concat all javascript files in one single file named main.js and minify it.
 gulp.task('scripts', function() {
     var jsSrc = [paths.js.src];
     if (srcType == "src-angular")
@@ -81,7 +81,7 @@ gulp.task('scripts', function() {
 });
 
 
-//Concat all javascript files in one single file named main.js and minify it after using webpack for react
+//Concat all javascript files in one single file named main.js and minify it after using webpack for react.
 gulp.task('scripts-react', function() {
     var jsSrc = [paths.js.src];
     return gulp.src(jsSrc)
