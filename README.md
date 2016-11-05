@@ -31,6 +31,11 @@
 <li>SCSS</li>
 <li>Bootstrap</li>
 <li>Angular 1</li>
+<li>React</li>
+<li>JSX</li>
+<li>ES6</li>
+<li>babel</li>
+<li>Webpack</li>
 <li>Gulp</li>
 </ul>
 
