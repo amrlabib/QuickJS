@@ -103,7 +103,7 @@ gulp.task('static-server-and-watch', function() {
     //Watch any change in html, css or js files to reload browserSync 
     gulp.watch(paths.style.src + ".+(less|scss)", ['compileLess', 'compileSass', browserSync.reload]);
     gulp.watch(paths.html.src, ['copyHtmlFiles', browserSync.reload]);
-    gulp.watch(paths.js.src, ['scripts', browserSync.reload]);
+    gulp.watch(paths.js.src, ['scripts-react', browserSync.reload]);
 });
 
 
@@ -128,7 +128,7 @@ gulp.task('node-static-servers', function(cb) {
     //Watch any change in html, css or js files to reload browserSync 
     gulp.watch(paths.style.src + ".+(less|scss)", ['compileLess', 'compileSass', browserSync.reload]);
     gulp.watch(paths.html.src, ['copyHtmlFiles', browserSync.reload]);
-    gulp.watch(paths.js.src, ['scripts', browserSync.reload]);
+    gulp.watch(paths.js.src, ['scripts-react', browserSync.reload]);
 });
 
 //last 2 tasks should be added only if we have node server not only static server

@@ -1,15 +1,13 @@
 import React , { Component } from 'react';
 
-class UserListItem extends Component {
+const UserListItem = ({user}) => {
 
-
-    render() {
-        return (
-            <li class="list-group-item">
-			    
-			</li>
-        );
-    }
+    return (
+        <li className="list-group-item">
+        	<span>Username: {user.username}</span><br/>
+        	<span>Username: {user.passowrd}</span>
+		</li>
+    );
 }
 
 

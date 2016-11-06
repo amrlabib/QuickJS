@@ -14,7 +14,10 @@ module.exports = {
             query: {
                 presets: ['es2015', 'react']
             }
-        }]
+        }],
+        preLoaders: [
+            { test: /\.json$/, loader: 'json' }
+        ],
     },
     resolve: {
         extensions: ['', '.js', '.jsx']
