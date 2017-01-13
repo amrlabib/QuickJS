@@ -60,7 +60,7 @@ module.exports = function(app, dbModule) {
 
 
 
-    /////// APIs used for Angular app src ///////
+    /////// APIs used for Angular and React app src ///////
 
     app.post('/api/users/signup/', (req, res) => {
         dbModule.db.collection('users').save(req.body, (err, result) => {

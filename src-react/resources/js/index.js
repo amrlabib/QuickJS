@@ -30,9 +30,10 @@ class App extends Component {
     }
 
     render() {
-        return ( < div className = "temp-class" >
-            < UsersList users = { this.state.users }
-            /> </div >
+        return ( 
+            <div className="temp-class">
+                <UsersList users={this.state.users} /> 
+            </div>
         );
     }
 }
