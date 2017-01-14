@@ -1,15 +1,18 @@
 import React , { Component } from 'react';
 
-const UserListItem = ({user}) => {
+export default class UserListItem extends Component {
+	constructor(props)
+	{
+		super(props);	
+	}
 
-    return (
-        <li className="list-group-item">
-        	<span>Username: {user.username}</span><br/>
-        	<span>Username: {user.passowrd}</span>
-
-		</li>
-    );
+	render()
+	{
+	    return (
+	        <li className="list-group-item" onClick={this.props.onClick}>
+	        	<span>Username: {this.props.user.username}</span><br/>
+	        	<span>Username: {this.props.user.passowrd}</span>
+			</li>
+	    );
+	}
 }
-
-
-export default UserListItem;

@@ -6,9 +6,10 @@ import reducers from './reducers';
 
 
 import UsersList from './containers/UsersList';
+import UserDetail from './containers/UserDetail';
+
+
 //import Fetch from 'node-fetch';
-
-
 
 class App extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class App extends Component {
         };*/
 
         //this.getAllUsers();
-    }
+    } 
 
     /*getAllUsers() {
         var self = this;
@@ -40,6 +41,7 @@ class App extends Component {
             <Provider store={createStore(reducers)}>
                 <div className="temp-class">
                     <UsersList /*users={this.state.users}*/ /> 
+                    <UserDetail /> 
                 </div>
             </Provider>
         );
