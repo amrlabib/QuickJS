@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore , applyMiddleware } from 'redux';
 import reducers from './reducers';
+import ReduxPromise from 'redux-promise';
 
 
 import UsersList from './containers/UsersList';
 import UserDetail from './containers/UserDetail';
 
 
+//All commented code, used to do some of the currentl functionalities but without redux, by only using component state and props
 //import Fetch from 'node-fetch';
+
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+
 
 class App extends Component {
     constructor(props) {
         super(props);
 
+
         /*this.state = {
             users: [{ _id: "1234", username: "amro" }, { _id: "4321", username: "mohammed" }]
         };*/
-
         //this.getAllUsers();
     } 
 
@@ -38,7 +43,7 @@ class App extends Component {
 
     render() {
         return ( 
-            <Provider store={createStore(reducers)}>
+            <Provider store={createStoreWithMiddleware(reducers)}>
                 <div className="temp-class">
                     <UsersList /*users={this.state.users}*/ /> 
                     <UserDetail /> 
@@ -51,4 +56,3 @@ class App extends Component {
 ReactDOM.render( < App / > , document.querySelector(".react-container"));
 
 
-//

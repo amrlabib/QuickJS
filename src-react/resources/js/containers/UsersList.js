@@ -5,11 +5,22 @@ import UserListItem from "../components/UserListItem";
 //React redux is the connection between React and Redux libraries
 import { connect } from 'react-redux';
 import { selectUser } from '../actions/index';
+import { fetchUsers } from '../actions/fetchUsersAction';
 import { bindActionCreators } from 'redux';
 
 
 class UsersList extends Component
 {
+	constructor(props)
+	{
+		super(props);
+
+	}
+	
+	componentWillMount()
+	{
+		this.props.fetchUsers();
+	}
 
 	selectUserHandler(user)
 	{
@@ -17,16 +28,19 @@ class UsersList extends Component
 	}
 
 	render(){
-		const {users} = this.props;
-		const userItems = users.map((user) => {
-	    return (
-	      <UserListItem
-	        key={user._id}
-	        user={user}
-	        onClick={()=> { this.selectUserHandler.bind(this)(user);}} />
-		   );
-		 });
-
+		var userItems = <div>Fetching Users...</div>;
+		if(this.props.users != null)
+		{
+			const {users} = this.props;
+			userItems = users.data.map((user) => {
+		    return (
+		      <UserListItem
+		        key={user._id}
+		        user={user}
+		        onClick={()=> { this.selectUserHandler.bind(this)(user);}} />
+			   );
+			 });
+		}
 		return (
 			<section className="home">
 			    <h1>Users list</h1>
@@ -51,7 +65,7 @@ function mapStateToProps(state)
 function mapDispatchToProps(dispatch)
 {
 	//Whenever selectBook is called the result should be passed to all reducers
-	return bindActionCreators({selectUser : selectUser} , dispatch);
+	return bindActionCreators({selectUser : selectUser , fetchUsers : fetchUsers} , dispatch);
 }
 
 //Connect function from react-redux will take a function and a component and produces a container (which is a component aware of redux state)

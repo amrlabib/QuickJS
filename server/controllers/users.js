@@ -74,6 +74,7 @@ module.exports = function(app, dbModule) {
 
     app.get('/api/users/', (req, res) => {
         var allUsers = dbModule.db.collection('users').find().toArray(function(err, results) {
+            console.log("fetching users from api");
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify(results));
         });
