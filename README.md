@@ -32,6 +32,7 @@
 <li>Bootstrap</li>
 <li>Angular 1</li>
 <li>React</li>
+<li>Redux</li>
 <li>JSX</li>
 <li>ES6</li>
 <li>babel</li>
