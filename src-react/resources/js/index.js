@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import UsersList from './components/UsersList';
-import Fetch from 'node-fetch';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from './reducers';
+
+
+import UsersList from './containers/UsersList';
+//import Fetch from 'node-fetch';
+
 
 
 class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
+        /*this.state = {
             users: [{ _id: "1234", username: "amro" }, { _id: "4321", username: "mohammed" }]
-        };
+        };*/
 
-        this.getAllUsers();
+        //this.getAllUsers();
     }
 
-    getAllUsers() {
+    /*getAllUsers() {
         var self = this;
         fetch("http://localhost:5000/api/users/").
         then(function(response) {
@@ -27,13 +33,15 @@ class App extends Component {
             .catch(function(err) {
                 console.log(err);
             });
-    }
+    }*/
 
     render() {
         return ( 
-            <div className="temp-class">
-                <UsersList users={this.state.users} /> 
-            </div>
+            <Provider store={createStore(reducers)}>
+                <div className="temp-class">
+                    <UsersList /*users={this.state.users}*/ /> 
+                </div>
+            </Provider>
         );
     }
 }

@@ -25,7 +25,9 @@
     "mongodb": "^2.2.10",
     "node-fetch": "^1.6.3",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "angular-resource": "^1.5.8",

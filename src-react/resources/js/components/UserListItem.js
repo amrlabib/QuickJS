@@ -6,6 +6,7 @@ const UserListItem = ({user}) => {
         <li className="list-group-item">
         	<span>Username: {user.username}</span><br/>
         	<span>Username: {user.passowrd}</span>
+
 		</li>
     );
 }
