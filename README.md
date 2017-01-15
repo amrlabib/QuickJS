@@ -16,8 +16,7 @@
 <h3>How to install:</h3>
 <ol>
 <li>npm install</li>
-<li>gulp ->  to run static server</li>
-<li>node server.js ->  to run node server</li>
+<li>npm start</li>
 </ol>
 
 
@@ -33,6 +32,7 @@
 <li>Angular 1</li>
 <li>React</li>
 <li>Redux</li>
+<li>React-Router</li>
 <li>JSX</li>
 <li>ES6</li>
 <li>babel</li>
