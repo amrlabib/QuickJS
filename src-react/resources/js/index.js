@@ -4,8 +4,9 @@ import { Provider } from 'react-redux';
 import { createStore , applyMiddleware } from 'redux';
 import reducers from './reducers';
 import ReduxPromise from 'redux-promise';
-import UsersList from './containers/UsersList';
-import UserDetail from './containers/UserDetail';
+import {Router , browserHistory} from  'react-router';
+import routes from  './routes';
+
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
@@ -17,15 +18,12 @@ class App extends Component {
     render() {
         return ( 
             <Provider store={createStoreWithMiddleware(reducers)}>
-                <div className="temp-class">
-                    <UsersList /> 
-                    <UserDetail /> 
-                </div>
+                <Router history={browserHistory} routes={routes} />
             </Provider>
         );
     }
 }
 
-ReactDOM.render( < App / > , document.querySelector(".react-container"));
+ReactDOM.render( <App /> , document.querySelector(".react-container"));
 
 

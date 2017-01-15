@@ -4,7 +4,7 @@
   "description": "Quick JS Development",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"nodemon server.js\" \"gulp\""
   },
   "keywords": [
     "QuickJs Dev",
@@ -28,6 +28,7 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^5.0.2",
+    "react-router": "^2.0.0-rc5",
     "redux": "^3.6.0",
     "redux-promise": "^0.5.3"
   },
@@ -53,8 +54,5 @@
     "json-loader": "^0.5.4",
     "nodemon": "^1.11.0",
     "webpack-stream": "^3.2.0"
-  },
-  "scripts": {
-    "start": "concurrently \"nodemon server.js\" \"gulp\""
   }
 }

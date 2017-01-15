@@ -3,7 +3,7 @@ import React , { Component } from 'react';
 export default class UserListItem extends Component {
 	constructor(props)
 	{
-		super(props);	
+		super(props);
 	}
 
 	render()
