@@ -4,7 +4,7 @@ import React ,  {Component} from 'react';
 import UserListItem from "../components/UserListItem";
 //React redux is the connection between React and Redux libraries
 import { connect } from 'react-redux';
-import { selectUser } from '../actions/index';
+import { selectUser } from '../actions/selectUserAction';
 import { fetchUsers } from '../actions/fetchUsersAction';
 import { bindActionCreators } from 'redux';
 
