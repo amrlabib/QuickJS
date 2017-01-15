@@ -9,6 +9,8 @@ var browserSync = require('browser-sync').create();
 var spawn = require('child_process').spawn;
 var color = require('gulp-color');
 var webpack = require('webpack-stream');
+var historyApiFallback = require('connect-history-api-fallback');
+
 
 
 //change source to what ever technology used for the application (Angular , React , ... etc )
@@ -96,7 +98,8 @@ gulp.task('scripts-react', function() {
 gulp.task('static-server-and-watch', function() {
     browserSync.init({
         server: {
-            baseDir: "./dist/"
+            baseDir: "./dist/",
+            middleware: [historyApiFallback()]//this middleware is important for react-router
         }
     });
 
