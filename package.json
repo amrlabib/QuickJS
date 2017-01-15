@@ -1,5 +1,5 @@
 {
-  "name": "quick js dev",
+  "name": "quickjs",
   "version": "1.0.0",
   "description": "Quick JS Development",
   "main": "main.js",
@@ -51,6 +51,10 @@
     "gulp-minify": "0.0.14",
     "gulp-sass": "^2.3.2",
     "json-loader": "^0.5.4",
+    "nodemon": "^1.11.0",
     "webpack-stream": "^3.2.0"
+  },
+  "scripts": {
+    "start": "concurrently \"nodemon server.js\" \"gulp\""
   }
 }
