@@ -11,7 +11,7 @@ class UserDetail extends Component{
 			<div>
 				<h3>Details:</h3>
 				<div>{ this.props.userDetails.username }</div>
-				<div>{ this.props.userDetails.passowrd }</div>
+				<div>{ this.props.userDetails.password }</div>
 			</div>
 			)
 	}

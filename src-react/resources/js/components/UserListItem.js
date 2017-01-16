@@ -11,7 +11,7 @@ export default class UserListItem extends Component {
 	    return (
 	        <li className="list-group-item" onClick={this.props.onClick}>
 	        	<span>Username: {this.props.user.username}</span><br/>
-	        	<span>Username: {this.props.user.passowrd}</span>
+	        	<span>Username: {this.props.user.password}</span>
 			</li>
 	    );
 	}

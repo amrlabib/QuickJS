@@ -10,7 +10,7 @@ module.exports = function(app, dbModule) {
         var allUsers = dbModule.db.collection('users').find().toArray(function(err, results) {
             var validUserAndPass = false;
             for (user in results) {
-                if (results[user].username == req.body.username && results[user].passowrd == req.body.passowrd) {
+                if (results[user].username == req.body.username && results[user].password == req.body.password) {
                     validUserAndPass = true;
                     req.session.username = results[user].username;
                     break;
@@ -85,7 +85,16 @@ module.exports = function(app, dbModule) {
         dbModule.db.collection('users').remove({ "_id": dbModule.ObjectID(req.params.id) }, function(err) {
 
             res.setHeader('Content-Type', 'application/json');
-            res.send(JSON.stringify({ message: "successfully deleted " }));
+            res.send(JSON.stringify({ message: "successfully deleted user" }));
+        });
+    });
+
+
+    app.get('/api/users/delete/', (req, res) => {
+        dbModule.db.collection('users').remove(function(err) {
+
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({ message: "successfully deleted all users" }));
         });
     });
 };
