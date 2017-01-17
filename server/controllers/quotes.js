@@ -1,3 +1,4 @@
+
 module.exports = function(app, dbModule) {
 
     app.get('/quotes/', (req, res) => {
