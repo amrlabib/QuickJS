@@ -1,20 +1,24 @@
 var LocalStrategy = require('passport-local').Strategy;
-var dbModule = require('../config/db.js');
+var dbModule = require('../db');
 
 
 module.exports = new LocalStrategy(function(username, password, done) {
-    dbModule.db.collection('users').find({ "username" : username }).toArray(function(err, results) {
-        var validUserAndPass = false;
-        for (user in results) {
-            if (results[user].username == req.body.username && results[user].password == req.body.password) {
-                validUserAndPass = true;
-                req.session.username = results[user].username;
-                break;
-            }
+    dbModule.db.collection('users').find({ "username": username }).toArray(function(err, user) {
+        
+        console.log(user);
+
+        if (err)
+            return done(err);
+
+        if (!user)
+            return done(null, false, { message: 'Incorrect username.' });
+
+        if (!user.validPassword(password)) {
+            return done(null, false, { message: 'Incorrect password.' });
         }
-        if (validUserAndPass)
-            res.render('users/login.ejs', { loginMessage: "Current logged user is " + req.session.username });
-        else
-            res.render('users/login.ejs', { loginMessage: "Incorrect Username or Password" });
+
+        console.log(user);
+
+        return done(null, user);
     });
 });

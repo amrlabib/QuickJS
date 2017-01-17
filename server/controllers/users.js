@@ -1,3 +1,5 @@
+var passport = require('passport');
+
 module.exports = function(app, dbModule) {
     app.get('/users/login/', (req, res) => {
         console.log("in login page");
@@ -97,4 +99,49 @@ module.exports = function(app, dbModule) {
             res.send(JSON.stringify({ message: "successfully deleted all users" }));
         });
     });
+
+    app.post('/api/users/login/', login);
+
+    function login(req, res, next) {
+        passport.authenticate('user', function(err, user, info) {
+
+            console.log(user);
+
+            if (err) {
+                console.log("inside error");
+                return next(err);
+            }
+
+            if (!user) {
+                console.log("inside not user error");
+                return res.status(401).json({
+                    "status": "fail",
+                    "data": { message: info }
+                });
+            }
+
+            // Passport exposes a login() function on req (also aliased as
+            // logIn()) that can be used to establish a login session
+
+            req.logIn(user, function(err) {
+                console.log("inside login session function from passport");
+
+                console.log(user);
+                console.log(err);
+                if (err) {
+
+                    return res.status(500).json({
+                        "status": "error",
+                        "message": err
+                    });
+                }
+
+                return res.status(200).json({
+                    "status": "success",
+                    "data": { "message": "login session success" }
+                });
+            });
+
+        })(req, res, next);
+    }
 };

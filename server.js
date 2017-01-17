@@ -29,7 +29,11 @@ var sess = {
 app.use('/resources', express.static(__dirname + '/dist/resources'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
+
+require('./server/config/passport')(app, passport , dbModule);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 
@@ -45,6 +49,7 @@ app.get('/', (req, res) => {
 
 require('./server/controllers/users.js')(app, dbModule);
 require('./server/controllers/quotes.js')(app, dbModule);
+
 
 
 // Start Node server on Port 5000
