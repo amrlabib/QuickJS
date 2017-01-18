@@ -82,15 +82,16 @@ module.exports = function(app, dbModule) {
     });
 
     app.get('/api/users/delete/:id', (req, res) => {
+        console.log("got the following id for deleting user : " + req.params.id);
         dbModule.db.collection('users').remove({ "_id": dbModule.ObjectID(req.params.id) }, function(err) {
-
             res.setHeader('Content-Type', 'application/json');
-            res.send(JSON.stringify({ message: "successfully deleted user" }));
+            res.send(JSON.stringify({ message: "successfully deleted user"  , _id : req.params.id }));
         });
     });
 
 
     app.get('/api/users/delete/', (req, res) => {
+        console.log("deleting all users");
         dbModule.db.collection('users').remove(function(err) {
 
             res.setHeader('Content-Type', 'application/json');
@@ -103,8 +104,6 @@ module.exports = function(app, dbModule) {
 
     function login(req, res, next) {
         passport.authenticate('user', function(err, user, info) {
-
-            console.log(user);
 
             if (err) {
                 console.log("inside error");
@@ -123,8 +122,6 @@ module.exports = function(app, dbModule) {
             // logIn()) that can be used to establish a login session
 
             req.logIn(user, function(err) {
-                console.log("inside login session function from passport");
-                console.log(user);
                 if (err) {
 
                     return res.status(500).json({
@@ -144,7 +141,6 @@ module.exports = function(app, dbModule) {
 
 
     function logout(req, res) {
-        console.log("in logout");
         req.logOut();
         req.session.destroy(function() {
             req.user = null;
@@ -156,8 +152,8 @@ module.exports = function(app, dbModule) {
     };
 
     function authorizeUser(req, res, next) {
-        console.log(req.user);
-        if (req.user) {
+        //currently not authorizing user is logged in just to simplify application testing, we need to remove or true later
+        if (req.user || true ) {
             next();
         } else {
             res.status(401).json({

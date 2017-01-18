@@ -1,14 +1,13 @@
 import axios from 'axios';
 
 const API = "http://localhost:5000/api/users/delete";
-export const SIGNUP = 'SIGNUP';
+export const DELETE_USER = 'DELETE_USER';
 
-export function signup(userId)
+export function deleteUser(userId)
 {
-
-	const request = axios.get(API);
+	const request = axios.get(API + "/"+ userId);
 	return {
-		type: SIGNUP,
+		type: DELETE_USER,
 		payload: request
 	}
 }

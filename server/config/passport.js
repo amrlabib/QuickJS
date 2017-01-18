@@ -6,15 +6,11 @@ var LocalStrategy = require('passport-local').Strategy;
 module.exports = function(app, passport, dbModule) {
 
     passport.serializeUser(function(user, done) {
-    	console.log("in serializeUser");
-    	console.log(user);
-        done(null, user["_id"]);
+        done(null, user);
     });
 
-    passport.deserializeUser(function(id, done) {
-    	console.log("in deserializeUser");
-console.log(id);
-        done(null, {id: id});
+    passport.deserializeUser(function(user, done) {
+        done(null, user);
     });
 
     passport.use('user', new LocalStrategy(

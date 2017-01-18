@@ -7,7 +7,7 @@ import {reducer as formReducer} from 'redux-form';
 const rootReducer = combineReducers({
 	users : UsersReducer,
 	activeUser: ActiveUser,
-	form: formReducer
+	form: formReducer 
 });
 
 export default rootReducer;

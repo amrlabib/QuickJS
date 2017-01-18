@@ -6,7 +6,6 @@ var bodyParser = require('body-parser');
 var dbModule = require('./server/config/db.js')(app);
 var passport = require('passport');
 var path = require('path');
-
 const serveStatic = require('serve-static');
 
 app.set('views', __dirname + '/server/views');
@@ -19,7 +18,8 @@ var sess = {
     secret: "anysecret",
     name: 'sessionId',
     cookie: {
-        secure: false
+        secure: false,
+        maxAge:3600000 //1 hour
     }
 }
 
