@@ -6,18 +6,20 @@ var LocalStrategy = require('passport-local').Strategy;
 module.exports = function(app, passport, dbModule) {
 
     passport.serializeUser(function(user, done) {
-        done(null, user);
+    	console.log("in serializeUser");
+    	console.log(user);
+        done(null, user["_id"]);
     });
 
-    passport.deserializeUser(function(user, done) {
-        done(null, user);
+    passport.deserializeUser(function(id, done) {
+    	console.log("in deserializeUser");
+console.log(id);
+        done(null, {id: id});
     });
 
     passport.use('user', new LocalStrategy(
         function(username, password, done) {
             dbModule.db.collection('users').find({ "username": username }).toArray(function(err, user) {
-                console.log(user);
-
                 if (err)
                     return done(err);
 
@@ -28,9 +30,7 @@ module.exports = function(app, passport, dbModule) {
                     return done(null, false, { message: 'Incorrect password.' });
                 }
 
-                console.log(user);
-
-                return done(null, user);
+                return done(null, user[0]);
             });
         }
     ));

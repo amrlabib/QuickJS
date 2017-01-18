@@ -73,15 +73,13 @@ module.exports = function(app, dbModule) {
         });
     });
 
-
-    app.get('/api/users/', (req, res) => {
+    app.get('/api/users/', authorizeUser  ,   (req, res) => {
         var allUsers = dbModule.db.collection('users').find().toArray(function(err, results) {
             console.log("fetching users from api");
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify(results));
         });
     });
-
 
     app.get('/api/users/delete/:id', (req, res) => {
         dbModule.db.collection('users').remove({ "_id": dbModule.ObjectID(req.params.id) }, function(err) {
@@ -101,6 +99,7 @@ module.exports = function(app, dbModule) {
     });
 
     app.post('/api/users/login/', login);
+    app.get('/api/users/logout/', logout);
 
     function login(req, res, next) {
         passport.authenticate('user', function(err, user, info) {
@@ -125,9 +124,7 @@ module.exports = function(app, dbModule) {
 
             req.logIn(user, function(err) {
                 console.log("inside login session function from passport");
-
                 console.log(user);
-                console.log(err);
                 if (err) {
 
                     return res.status(500).json({
@@ -138,10 +135,35 @@ module.exports = function(app, dbModule) {
 
                 return res.status(200).json({
                     "status": "success",
-                    "data": { "message": "login session success" }
+                    "data": { user }
                 });
             });
 
         })(req, res, next);
+    }
+
+
+    function logout(req, res) {
+        console.log("in logout");
+        req.logOut();
+        req.session.destroy(function() {
+            req.user = null;
+            req.session = null;
+            res.status(200).json({
+                "status": "success"
+            });
+        });
+    };
+
+    function authorizeUser(req, res, next) {
+        console.log(req.user);
+        if (req.user) {
+            next();
+        } else {
+            res.status(401).json({
+                "status": "fail",
+                "data": { "message": "unauthorized" }
+            });
+        }
     }
 };
