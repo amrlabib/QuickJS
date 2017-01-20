@@ -29,7 +29,7 @@ class UsersList extends Component {
     deleteUserHandler(user) {
         //another action from redux
         this.props.deleteUser(user).then(function(result) {
-            //this.props.fetchUsers(); //this is wrong we need to update redux state and remove the deleted user so that we avoid another unnecessary calls to server
+            
         }.bind(this));
     }
 

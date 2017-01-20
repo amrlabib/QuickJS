@@ -65,7 +65,8 @@ module.exports = function(app, dbModule) {
     /////// APIs used for Angular and React app src ///////
 
     app.post('/api/users/signup/', (req, res) => {
-        dbModule.db.collection('users').save(req.body, (err, result) => {
+        var user = { username : req.body.username , password : req.body.password };
+        dbModule.db.collection('users').save(user, (err, result) => {
             if (err) return console.log(err)
 
             res.setHeader('Content-Type', 'application/json');

@@ -1,6 +1,9 @@
 import React , { Component } from 'react';
-import {reduxForm} from 'redux-form';
+import {reduxForm , reset} from 'redux-form';
 import {signup}  from '../actions/signupAction';
+import  {Router} from 'react-router';
+import { browserHistory } from 'react-router';
+
 
 
 class Signup extends Component
@@ -10,31 +13,38 @@ class Signup extends Component
 		super(props);
 	}
 
+	currentHandleSubmit()
+	{
+		const currentUser = { username : this.props.fields.username.value , password : this.props.fields.password.value }
+		this.props.signup(currentUser).then(function(result) {
+            browserHistory.push('/');
+        }.bind(this));
+	}
 
 	render()
 	{
 		const { fields : {username , password , passwordConfirmation} , handleSubmit } = this.props;
 		return (
 			<section>
-				<form onSubmit={handleSubmit(this.props.signup)} >
+				<form onSubmit={handleSubmit(this.currentHandleSubmit.bind(this))}  >
 					<h3>Signup</h3>
 					<div className={`form-group ${username.touched && username.invalid ? 'has-danger' : '' }`}>
 						<label>Username:</label>
-						<input type="text"  className="form-control"  {...username} />
+						<input type="text"  className="form-control"  value={username.value} {...username} />
 						<div className="text-help">
 							{username.touched ? username.error : ""}
 						</div>
 					</div>
 					<div className={`form-group ${password.touched && password.invalid ? 'has-danger' : '' }`}>
 						<label>Password:</label>
-						<input type="password"  className="form-control"  {...password}/>
+						<input type="password"  className="form-control" value={password.value}  {...password}/>
 						<div className="text-help">
 							{password.touched ? password.error : ""}
 						</div>
 					</div>
 					<div className={`form-group ${passwordConfirmation.touched && passwordConfirmation.invalid ? 'has-danger' : '' }`}>
 						<label>Password Confirmation:</label>
-						<input type="password" className="form-control"  {...passwordConfirmation}/>
+						<input type="password" className="form-control" value={passwordConfirmation.value}  {...passwordConfirmation}/>
 						<div className="text-help">
 							{passwordConfirmation.touched ? passwordConfirmation.error : ""}
 						</div>

@@ -16,7 +16,7 @@ class App extends Component {
         super(props);
     } 
     render() {
-        return ( 
+        return (
             <Provider store={createStoreWithMiddleware(reducers)}>
                 <Router history={browserHistory} routes={routes} />
             </Provider>
