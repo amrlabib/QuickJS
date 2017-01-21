@@ -154,7 +154,8 @@ module.exports = function(app, dbModule) {
 
     function authorizeUser(req, res, next) {
         //currently not authorizing user is logged in just to simplify application testing, we need to remove or true later
-        if (req.user || true ) {
+        //|| true 
+        if (req.user ) {
             next();
         } else {
             res.status(401).json({

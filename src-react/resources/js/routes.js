@@ -3,7 +3,7 @@ import { Route , IndexRoute} from 'react-router';
 import App from './components/app';
 import UsersListIndex from './containers/UsersList';
 import UsersDetailIndex from './containers/UserDetail';
-import LoginIndex from './components/Login';
+import LoginIndex from './containers/Login';
 import SignupIndex from './components/Signup';
 
 export default (

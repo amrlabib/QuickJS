@@ -1,6 +1,6 @@
 import React , { Component } from 'react';
 import {reduxForm , reset} from 'redux-form';
-import {signup}  from '../actions/signupAction';
+import {signup}  from '../actions/signupUserAction';
 import  {Router} from 'react-router';
 import { browserHistory } from 'react-router';
 
@@ -13,7 +13,7 @@ class Signup extends Component
 		super(props);
 	}
 
-	currentHandleSubmit()
+	handleSignup()
 	{
 		const currentUser = { username : this.props.fields.username.value , password : this.props.fields.password.value }
 		this.props.signup(currentUser).then(function(result) {
@@ -26,7 +26,7 @@ class Signup extends Component
 		const { fields : {username , password , passwordConfirmation} , handleSubmit } = this.props;
 		return (
 			<section>
-				<form onSubmit={handleSubmit(this.currentHandleSubmit.bind(this))}  >
+				<form onSubmit={handleSubmit(this.handleSignup.bind(this))}  >
 					<h3>Signup</h3>
 					<div className={`form-group ${username.touched && username.invalid ? 'has-danger' : '' }`}>
 						<label>Username:</label>

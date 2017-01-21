@@ -1,7 +1,8 @@
 import React , { Component } from 'react';
 import {reduxForm} from 'redux-form';
-import {login}  from '../actions/loginAction';
-
+import {login}  from '../actions/loginUserAction';
+import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 class Login extends Component
 {
@@ -10,13 +11,24 @@ class Login extends Component
 		super(props);
 	}
 
+	componentDidMount() {
+		
+	}
+
+	handleLogin()
+	{
+		const userInfo = {username : this.props.fields.username.value , password : this.props.fields.password.value };
+		this.props.login(userInfo).then (function (result){
+			browserHistory.push('/');
+		});
+	}
 
 	render()
 	{
 		const { fields : {username , password } , handleSubmit } = this.props;
 		return (
 			<section>
-				<form onSubmit={handleSubmit(this.props.login)} >
+				<form onSubmit={handleSubmit(this.handleLogin.bind(this))} >
 					<h3>Login</h3>
 					<div className={`form-group ${username.touched && username.invalid ? 'has-danger' : '' }`}>
 						<label>Username:</label>
@@ -37,6 +49,13 @@ class Login extends Component
 			</section>
 			)
 	}
+}
+
+function mapStateToProps(state) {
+    //whatever is retured here will be added in the component(container) props
+    return {
+        user : state.user
+    }
 }
 
 
@@ -61,5 +80,5 @@ export default reduxForm({
 	form: 'LoginForm',
 	fields : [ 'username' , 'password' ],
 	validate
-} , null , {login} )(Login)
+} , mapStateToProps , {login} )(Login)
 
