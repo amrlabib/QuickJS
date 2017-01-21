@@ -152,6 +152,24 @@ module.exports = function(app, dbModule) {
         });
     };
 
+
+    app.get('/api/users/authorize/',  authorize);
+
+    function authorize(req, res, next) {
+        
+        if (req.user ) {
+            res.status(200).json({
+                "status": "Success",
+                "user": req.user
+            });
+        } else {
+            res.status(401).json({
+                "status": "fail",
+                "data": { "message": "unauthorized" }
+            });
+        }
+    }
+
     function authorizeUser(req, res, next) {
         //currently not authorizing user is logged in just to simplify application testing, we need to remove or true later
         //|| true 

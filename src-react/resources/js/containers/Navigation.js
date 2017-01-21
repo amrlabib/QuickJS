@@ -1,6 +1,7 @@
 import React , { Component } from "react";
 import { connect } from 'react-redux';
 import { logout } from  '../actions/logoutUserAction';
+import { authorize } from  '../actions/authorizeUserAction';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { Link } from 'react-router';
@@ -9,6 +10,13 @@ class Navigation extends Component
 {
 	constructor(props) {
         super(props);
+    }
+
+    componentWillMount()
+    {
+    	this.props.authorize().catch(function(err){
+    		browserHistory.push('/login');
+    	});
     }
 
 	handleLogoutUser()
@@ -20,7 +28,7 @@ class Navigation extends Component
 
 	render()
 	{
-		const user = this.props.user ?  <span className="logged-user" onClick={this.handleLogoutUser.bind(this)}>{"Logout ("  + this.props.user.username + ")"}</span> : "";
+		const user = this.props.user ?  <span className="logged-user" onClick={this.handleLogoutUser.bind(this)}>{"Logout "  + this.props.user.username }</span> : "";
 		return (
 			<header>
 		        <nav className="navbar navbar-default">
@@ -50,8 +58,7 @@ function mapStateToProps(state)
 
 
 function mapDispatchToProps(dispatch) {
-    //Whenever selectBook is called the result should be passed to all reducers
-    return bindActionCreators({ logout : logout }, dispatch);
+    return bindActionCreators({ logout : logout  , authorize : authorize}, dispatch);
 }
 
 
