@@ -1,4 +1,4 @@
-import React , { Component } from 'react';
+import React , { Component , PropTypes } from 'react';
 import {reduxForm , reset} from 'redux-form';
 import {signup}  from '../actions/signupUserAction';
 import  {Router} from 'react-router';
@@ -8,16 +8,21 @@ import { browserHistory } from 'react-router';
 
 class Signup extends Component
 {
+	static contextTypes  = {
+		router : PropTypes.object
+	}
+
 	constructor(props)
 	{
 		super(props);
 	}
 
-	handleSignup()
+	handleSignup(props)
 	{
-		const currentUser = { username : this.props.fields.username.value , password : this.props.fields.password.value }
-		this.props.signup(currentUser).then(function(result) {
-            browserHistory.push('/');
+		//const currentUser = { username : this.props.fields.username.value , password : this.props.fields.password.value }
+		this.props.signup(props).then(function(result) {
+            //browserHistory.push('/');
+            this.context.router.push('/');
         }.bind(this));
 	}
 
