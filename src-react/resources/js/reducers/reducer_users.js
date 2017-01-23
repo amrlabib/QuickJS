@@ -2,16 +2,22 @@
 import { FETCH_USERS } from '../actions/fetchUsersAction';
 import { DELETE_USER } from '../actions/deleteUserAction';
 import { LOGOUT_USER } from '../actions/logoutUserAction';
+import { USER_DETAIL } from '../actions/usersDetailAction';
 
-export default function(state = null, action) {
+const INITIAL_STATE = { list : [] , userDetail : null};
+
+export default function(state = INITIAL_STATE, action) {
+    console.log("payload from users reducer");
+    console.log(action.payload);
     switch (action.type) {
         case FETCH_USERS:
-            return action.payload.data;
+            return {...state , list: action.payload.data};
         case DELETE_USER:
-            return state.filter(user => user._id !== action.payload.data._id);
-            break;
+            return {...state , list: state.list.filter(user => user._id !== action.payload.data._id) };
+        case USER_DETAIL:
+            return {...state , userDetail: action.payload.data.user };
         case LOGOUT_USER:
-            return null;
+            return INITIAL_STATE;
     }
     return state;
 }

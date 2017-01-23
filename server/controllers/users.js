@@ -1,6 +1,9 @@
 var passport = require('passport');
 
 module.exports = function(app, dbModule) {
+
+
+
     app.get('/users/login/', (req, res) => {
         console.log("in login page");
         res.render('users/login.ejs', { loginMessage: "Current logged user is " + req.session.username });
@@ -64,8 +67,13 @@ module.exports = function(app, dbModule) {
 
     /////// APIs used for Angular and React app src ///////
 
+    app.get('/api/users/authorize/', authorize);
+    app.post('/api/users/login/', login);
+    app.get('/api/users/logout/', logout);
+
+
     app.post('/api/users/signup/', (req, res) => {
-        var user = { username : req.body.username , password : req.body.password };
+        var user = { username: req.body.username, password: req.body.password , email : req.body.email };
         dbModule.db.collection('users').save(user, (err, result) => {
             if (err) return console.log(err)
 
@@ -74,23 +82,15 @@ module.exports = function(app, dbModule) {
         });
     });
 
-    app.get('/api/users/', authorizeUser  ,   (req, res) => {
+    app.get('/api/users/', authorizeUser, (req, res) => {
         var allUsers = dbModule.db.collection('users').find().toArray(function(err, results) {
-            console.log("fetching users from api");
-            res.setHeader('Content-Type', 'application/json');
+            
             res.send(JSON.stringify(results));
         });
     });
 
-    app.get('/api/users/delete/:id', (req, res) => {
-        console.log("got the following id for deleting user : " + req.params.id);
-        dbModule.db.collection('users').remove({ "_id": dbModule.ObjectID(req.params.id) }, function(err) {
-            res.setHeader('Content-Type', 'application/json');
-            res.send(JSON.stringify({ message: "successfully deleted user"  , _id : req.params.id }));
-        });
-    });
 
-
+    //no authorization for deleting all users!
     app.get('/api/users/delete/', (req, res) => {
         console.log("deleting all users");
         dbModule.db.collection('users').remove(function(err) {
@@ -100,8 +100,27 @@ module.exports = function(app, dbModule) {
         });
     });
 
-    app.post('/api/users/login/', login);
-    app.get('/api/users/logout/', logout);
+    app.get('/api/users/:id', authorizeUser, (req, res) => {
+        dbModule.db.collection('users').find({ "_id": dbModule.ObjectID(req.params.id) }).toArray(function(err, result) {
+            console.log(result);
+
+            res.setHeader('Content-Type', 'application/json');
+
+            res.send(JSON.stringify({ message: "Successfully retrieved user", user: result[0] }));
+        });
+    });
+
+    app.get('/api/users/delete/:id', authorizeUser, (req, res) => {
+        console.log("got the following id for deleting user : " + req.params.id);
+        dbModule.db.collection('users').remove({ "_id": dbModule.ObjectID(req.params.id) }, function(err) {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({ message: "successfully deleted user", _id: req.params.id }));
+        });
+    });
+
+
+
+
 
     function login(req, res, next) {
         passport.authenticate('user', function(err, user, info) {
@@ -153,11 +172,9 @@ module.exports = function(app, dbModule) {
     };
 
 
-    app.get('/api/users/authorize/',  authorize);
-
     function authorize(req, res, next) {
-        
-        if (req.user ) {
+
+        if (req.user) {
             res.status(200).json({
                 "status": "Success",
                 "user": req.user
@@ -173,7 +190,7 @@ module.exports = function(app, dbModule) {
     function authorizeUser(req, res, next) {
         //currently not authorizing user is logged in just to simplify application testing, we need to remove or true later
         //|| true 
-        if (req.user ) {
+        if (req.user) {
             next();
         } else {
             res.status(401).json({

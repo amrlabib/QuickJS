@@ -28,7 +28,7 @@ class UsersList extends Component {
     }
 
     render() {
-        var userItems = < div > Fetching Users... < /div>;
+        var userItems = <div> ..... < /div>;
         if (this.props.users != null) {
             const { users } = this.props;
             userItems = users.map((user) => {
@@ -41,7 +41,7 @@ class UsersList extends Component {
             });
         }
         return ( <section className = "home" >
-            < h1 > Users list < /h1><h2>{this.props.user ? this.props.user.username : ""}</h2> < ul className = "list-group" > { userItems } < /ul> < /section>
+            < h1 > Users list < /h1>< ul className = "list-group" > { userItems } < /ul> < /section>
         );
     }
 }
@@ -50,8 +50,8 @@ class UsersList extends Component {
 function mapStateToProps(state) {
     //whatever is retured here will be added in the component(container) props
     return {
-        users: state.users,
-        user : state.user
+        users:  state.users.list
+        //user : state.user
     }
 }
 

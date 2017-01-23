@@ -4,7 +4,8 @@
   "description": "Quick JS Development",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"nodemon server.js\" \"gulp\"",
+    "start": "concurrently \"nodemon --watch server.js --watch server server.js\" \"gulp\"",
+    "start:server": "nodemon --watch server.js --watch server   server.js",
     "start:webpack": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js"
   },
   "keywords": [

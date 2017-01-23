@@ -7,11 +7,12 @@ import LoginIndex from './containers/Login';
 import SignupIndex from './components/Signup';
 
 
+
 export default (
   <Route  path="/" component={App} >
   	<IndexRoute component={UsersListIndex} />
-  	<Route path="user-detail" component={UsersDetailIndex} />
   	<Route path="login" component={LoginIndex} />
   	<Route path="signup" component={SignupIndex} />
+  	<Route path="/users/details/:id" component={UsersDetailIndex} />
   </Route>
 );

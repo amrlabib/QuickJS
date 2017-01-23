@@ -28,7 +28,7 @@ class Signup extends Component
 
 	render()
 	{
-		const { fields : {username , password , passwordConfirmation} , handleSubmit } = this.props;
+		const { fields : {username , email , password , passwordConfirmation} , handleSubmit } = this.props;
 		return (
 			<section>
 				<form onSubmit={handleSubmit(this.handleSignup.bind(this))}  >
@@ -38,6 +38,13 @@ class Signup extends Component
 						<input type="text"  className="form-control"  value={username.value} {...username} />
 						<div className="text-help">
 							{username.touched ? username.error : ""}
+						</div>
+					</div>
+					<div className={`form-group ${email.touched && email.invalid ? 'has-danger' : '' }`}>
+						<label>Email:</label>
+						<input type="text"  className="form-control"  value={email.value} {...email} />
+						<div className="text-help">
+							{email.touched ? email.error : ""}
 						</div>
 					</div>
 					<div className={`form-group ${password.touched && password.invalid ? 'has-danger' : '' }`}>
@@ -67,6 +74,9 @@ function validate(values)
 {
 	const errors = {};
 
+	if(!values.email || values.email.length < 3)
+		errors.email = "Enter Valid Email";
+
 	if(!values.username || values.username.length < 3)
 		errors.username = "Enter Username";
 
@@ -76,7 +86,6 @@ function validate(values)
 	if(!values.passwordConfirmation || values.password != values.passwordConfirmation)
 		errors.passwordConfirmation = "Passwords doesn't match";
 
-
 	return errors;	
 }
 
@@ -85,7 +94,7 @@ function validate(values)
 
 export default reduxForm({
 	form: 'SignupForm',
-	fields : [ 'username' , 'password' , 'passwordConfirmation' ],
+	fields : [ 'username' , 'email' ,'password' , 'passwordConfirmation' ],
 	validate
 } , null , {signup} )(Signup)
 
