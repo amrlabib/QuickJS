@@ -77,8 +77,8 @@ module.exports = function(app, dbModule) {
         dbModule.db.collection('users').save(user, (err, result) => {
             if (err) 
                 return console.log(err);
-
-            helper.Email.sendEmail(user);
+            //uncomment this to enable sending emails after successfull signup
+            //helper.Email.sendEmail(user);
 
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify({ "status": "sho3'l fanade2" }));
@@ -141,9 +141,6 @@ module.exports = function(app, dbModule) {
                 });
             }
 
-            // Passport exposes a login() function on req (also aliased as
-            // logIn()) that can be used to establish a login session
-
             req.logIn(user, function(err) {
                 if (err) {
 
@@ -174,7 +171,8 @@ module.exports = function(app, dbModule) {
         });
     };
 
-
+    //this authorization function is used when an implicit authorization request is received from client,
+    //example when page refreshed on client side, and a check for logged in user is required
     function authorize(req, res, next) {
 
         if (req.user) {
@@ -190,6 +188,7 @@ module.exports = function(app, dbModule) {
         }
     }
 
+    //this authorization function is used as a middleware in all apis that needs logged in user.
     function authorizeUser(req, res, next) {
         //currently not authorizing user is logged in just to simplify application testing, we need to remove or true later
         //|| true 
