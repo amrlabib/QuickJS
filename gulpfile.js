@@ -96,12 +96,12 @@ gulp.task('scripts-react', function() {
 
 // Static server and files watch only for static sites
 gulp.task('static-server-and-watch', function() {
-    browserSync.init({
+    /*browserSync.init({
         server: {
             baseDir: "./dist/",
             middleware: [historyApiFallback()]//this middleware is important for react-router
         }
-    });
+    });*/ // not user browserSync for server anymore using node 
 
     //Watch any change in html, css or js files to reload browserSync 
     gulp.watch(paths.style.src + ".+(less|scss)", ['compileLess', 'compileSass', browserSync.reload]);
