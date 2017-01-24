@@ -1,8 +1,8 @@
 var passport = require('passport');
+var helper = require('./helper');
+
 
 module.exports = function(app, dbModule) {
-
-
 
     app.get('/users/login/', (req, res) => {
         console.log("in login page");
@@ -73,9 +73,12 @@ module.exports = function(app, dbModule) {
 
 
     app.post('/api/users/signup/', (req, res) => {
-        var user = { username: req.body.username, password: req.body.password , email : req.body.email };
+        var user = { username: req.body.username, password: req.body.password, email: req.body.email };
         dbModule.db.collection('users').save(user, (err, result) => {
-            if (err) return console.log(err)
+            if (err) 
+                return console.log(err);
+
+            helper.Email.sendEmail(user);
 
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify({ "status": "sho3'l fanade2" }));
@@ -84,7 +87,7 @@ module.exports = function(app, dbModule) {
 
     app.get('/api/users/', authorizeUser, (req, res) => {
         var allUsers = dbModule.db.collection('users').find().toArray(function(err, results) {
-            
+
             res.send(JSON.stringify(results));
         });
     });
